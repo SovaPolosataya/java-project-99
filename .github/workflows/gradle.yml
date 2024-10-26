@@ -24,7 +24,7 @@ jobs:
       - uses: gradle/gradle-build-action@v3
         with:
           arguments: build
-          build-root-directory: app
+#          build-root-directory: app
           gradle-version: 8.7
       #- run: cd app && ./gradlew checkstyleMain
       #- run: cd app && ./gradlew test
