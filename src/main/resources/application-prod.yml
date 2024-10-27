@@ -1,0 +1,9 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: "sa"
+    password: "123"
