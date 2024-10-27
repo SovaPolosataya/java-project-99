@@ -2,9 +2,9 @@ FROM gradle:8.7.0-jdk21
 
 LABEL authors="sova"
 
-WORKDIR /app
+#WORKDIR /app
 
-COPY /app .
+#COPY /app .
 
 RUN gradle installDist
 
