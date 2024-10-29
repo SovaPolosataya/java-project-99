@@ -6,6 +6,7 @@ import hexlet.code.dto.UserUpdateDTO;
 import hexlet.code.model.User;
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Mapper(
-        uses = { JsonNullableMapper.class },
+        uses = { JsonNullableMapper.class, ReferenceMapper.class },
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
@@ -23,14 +24,24 @@ public abstract class UserMapper {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Mapping(target = "passwordDigest", source = "password")
     public abstract User map(UserCreateDTO dto);
     public abstract UserDTO map(User model);
     public abstract User map(UserDTO dto);
+    @Mapping(target = "passwordDigest", source = "password")
     public abstract void update(UserUpdateDTO dto, @MappingTarget User model);
 
     @BeforeMapping
     public void encryptPassword(UserCreateDTO data) {
         var password = data.getPassword();
         data.setPassword(passwordEncoder.encode(password));
+    }
+
+    @BeforeMapping
+    public void encryptPassword(UserUpdateDTO dto, @MappingTarget User model) {
+        if (dto.getPassword() != null && dto.getPassword().isPresent()) {
+            String password = dto.getPassword().get();
+            model.setPasswordDigest(passwordEncoder.encode(password));
+        }
     }
 }
