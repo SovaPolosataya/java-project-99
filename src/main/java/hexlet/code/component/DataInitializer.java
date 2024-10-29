@@ -1,7 +1,7 @@
 package hexlet.code.component;
 
 import hexlet.code.model.User;
-import hexlet.code.repository.UserRepository;
+//import hexlet.code.repository.UserRepository;
 import hexlet.code.service.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class DataInitializer implements ApplicationRunner {
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private CustomUserDetailsService userService;
