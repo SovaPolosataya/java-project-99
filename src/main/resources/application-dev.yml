@@ -3,6 +3,8 @@ spring:
     username: ""
     password: ""
     url: "jdbc:h2:mem:project"
+    driver-class-name: "org.h2.Driver"
+  database-platform: "org.hibernate.dialect.H2Dialect"
   h2:
     console:
       enabled: true
