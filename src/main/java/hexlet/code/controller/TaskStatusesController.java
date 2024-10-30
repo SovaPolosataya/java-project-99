@@ -10,6 +10,7 @@ import hexlet.code.repository.TaskStatusRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,13 +32,15 @@ public class TaskStatusesController {
     private TaskStatusMapper statusMapper;
 
     @GetMapping(path = "")
-    @ResponseStatus(HttpStatus.OK)
-    public List<TaskStatusDTO> index() {
+//    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<TaskStatusDTO>> index() {
         List<TaskStatus> statuses = statusRepository.findAll();
-        List<TaskStatusDTO> dto = statuses.stream()
+        List<TaskStatusDTO> dtos = statuses.stream()
                 .map(statusMapper::map)
                 .toList();
-        return dto;
+        return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(dtos.size()))
+                .body(dtos);
     }
 
     @GetMapping(path = "/{id}")
