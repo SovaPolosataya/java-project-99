@@ -76,7 +76,7 @@ public class UsersController {
         return userService.create(dto);
     }
 
-    @PreAuthorize("@userRepository.findById(#id).get().getEmail() == authentication.name")
+//    @PreAuthorize("@userRepository.findById(#id).get().getEmail() == authentication.name")
     @PutMapping(path = "/users/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDTO update(@RequestBody @Valid UserUpdateDTO updateDto, @PathVariable Long id) {
