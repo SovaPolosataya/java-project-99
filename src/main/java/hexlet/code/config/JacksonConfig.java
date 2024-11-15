@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class JacksonConfig {
+
     @Bean
     public JsonNullableModule jsonNullableModule() {
         return new JsonNullableModule();
@@ -21,7 +22,8 @@ public class JacksonConfig {
         var builder = new Jackson2ObjectMapperBuilder();
         builder.serializationInclusion(JsonInclude.Include.NON_NULL)
                 .modulesToInstall(new JsonNullableModule());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         builder.serializers(new LocalDateSerializer(formatter));
 
         return builder;
