@@ -1,9 +1,5 @@
 package hexlet.code.mapper;
 
-import hexlet.code.dto.UserCreateDTO;
-import hexlet.code.dto.UserDTO;
-import hexlet.code.dto.UserUpdateDTO;
-import hexlet.code.model.User;
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +8,12 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import hexlet.code.dto.user.UserCreateDTO;
+import hexlet.code.dto.user.UserDTO;
+import hexlet.code.dto.user.UserUpdateDTO;
+import hexlet.code.model.User;
 
 @Mapper(
         uses = { JsonNullableMapper.class, ReferenceMapper.class },
@@ -22,25 +23,27 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 )
 public abstract class UserMapper {
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Mapping(target = "passwordDigest", source = "password")
     public abstract User map(UserCreateDTO dto);
+
     public abstract UserDTO map(User model);
     public abstract User map(UserDTO dto);
+
     @Mapping(target = "passwordDigest", source = "password")
     public abstract void update(UserUpdateDTO dto, @MappingTarget User model);
 
     @BeforeMapping
-    public void encryptPassword(UserCreateDTO data) {
-        var password = data.getPassword();
-        data.setPassword(passwordEncoder.encode(password));
+    public void encryptPassword(UserCreateDTO dto) {
+        String password = dto.getPassword();
+        dto.setPassword(passwordEncoder.encode(password));
     }
 
     @BeforeMapping
     public void encryptPassword(UserUpdateDTO dto, @MappingTarget User model) {
-        if (dto.getPassword() != null && dto.getPassword().isPresent()) {
-            String password = dto.getPassword().get();
+        String password = dto.getPassword().get();
+        if (password != null) {
             model.setPasswordDigest(passwordEncoder.encode(password));
         }
     }
