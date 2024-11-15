@@ -1,4 +1,4 @@
-package hexlet.code.controller;
+package hexlet.code.controller.api;
 
 import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
 import hexlet.code.dto.taskStatus.TaskStatusDTO;
@@ -31,6 +31,7 @@ public class TaskStatusesController {
     @GetMapping(path = "")
     public ResponseEntity<List<TaskStatusDTO>> index() {
         List<TaskStatusDTO> dto = taskStatusService.getAll();
+
         return ResponseEntity.ok()
                 .header("X-Total-Count", String.valueOf(dto.size()))
                 .body(dto);
