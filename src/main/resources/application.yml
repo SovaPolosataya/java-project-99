@@ -13,7 +13,17 @@ spring:
     ansi:
       enabled: always
   profiles:
-    active: development
+    default: development
+
+server:
+  address: 0.0.0.0
+  port: ${PORT:8080}
+
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate: DEBUG
 
 rsa:
   private-key: classpath:certs/private.pem
