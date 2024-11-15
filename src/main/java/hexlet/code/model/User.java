@@ -7,11 +7,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-//import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -30,20 +32,29 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "users")
+@ToString(includeFieldNames = true, onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements BaseEntity, UserDetails {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @EqualsAndHashCode.Include
+    @ToString.Include
     private Long id;
 
+    @ToString.Include
     private String firstName;
+
+    @ToString.Include
     private String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @Email
+    @EqualsAndHashCode.Include
+    @ToString.Include
     private String email;
 
-//    @NotBlank
+    @Column(nullable = false)
     @Size(min = 3)
     private String passwordDigest;
 
