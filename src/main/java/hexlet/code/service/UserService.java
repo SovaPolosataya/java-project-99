@@ -34,7 +34,7 @@ public class UserService {
         User user = userMapper.map(createDTO);
         userRepository.save(user);
 
-        var userDTO = userMapper.map(user);
+        UserDTO userDTO = userMapper.map(user);
         return userDTO;
     }
 
@@ -52,7 +52,7 @@ public class UserService {
         userMapper.update(userData, user);
         userRepository.save(user);
 
-        var userDTO = userMapper.map(user);
+        UserDTO userDTO = userMapper.map(user);
         return userDTO;
     }
 
