@@ -28,3 +28,7 @@ logging:
 rsa:
   private-key: classpath:certs/private.pem
   public-key: classpath:certs/public.pem
+
+sentry:
+  dsn: https://7ba61e6b337305a58f73904abc1b32b2@o4508321785315328.ingest.de.sentry.io/4508321795539024
+  traces-sample-rate: 1.0
