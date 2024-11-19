@@ -42,8 +42,8 @@ public abstract class UserMapper {
 
     @BeforeMapping
     public void encryptPassword(UserUpdateDTO dto, @MappingTarget User model) {
-        String password = dto.getPassword().get();
-        if (password != null) {
+        if (dto.getPassword() != null) {
+            String password = dto.getPassword().get();
             model.setPasswordDigest(passwordEncoder.encode(password));
         }
     }
