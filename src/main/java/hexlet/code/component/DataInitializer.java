@@ -5,6 +5,7 @@ import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;
+import hexlet.code.repository.UserRepository;
 import hexlet.code.service.CustomUserDetailsService;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,8 @@ public class DataInitializer implements ApplicationRunner {
     @Autowired
     private CustomUserDetailsService userService;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private TaskStatusRepository statusRepository;
     @Autowired
     private LabelRepository labelRepository;
@@ -27,6 +30,10 @@ public class DataInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         String email = "hexlet@example.com";
+        User testUser = userRepository.findByEmail(email).orElse(null);
+        if (testUser != null) {
+            return;
+        }
         User userData = new User();
         userData.setEmail(email);
         userData.setPasswordDigest("qwerty");
