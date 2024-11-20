@@ -1,10 +1,11 @@
 spring:
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: ${JDBC_DATABASE_URL}
+#    url: ${JDBC_DATABASE_URL}
+    url: jdbc:postgresql://${HOST}:${DB_PORT}/${DATABASE}
     driver-class-name: org.postgresql.Driver
     username: ${USERNAME}
     password: ${PASSWORD}
