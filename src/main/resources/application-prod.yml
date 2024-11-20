@@ -4,3 +4,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ${USERNAME}
     password: ${PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
