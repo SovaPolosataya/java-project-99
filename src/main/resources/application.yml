@@ -9,7 +9,7 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
-      dialect: My.SQLDialect
+      dialect: org.hibernate.dialect.PostgreSQLDialect
   output:
     ansi:
       enabled: always
