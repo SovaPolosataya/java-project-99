@@ -9,6 +9,7 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
+      dialect: My.SQLDialect
   output:
     ansi:
       enabled: always
