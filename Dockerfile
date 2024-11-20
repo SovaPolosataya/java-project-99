@@ -8,4 +8,6 @@ COPY / .
 
 RUN ./gradlew installDist
 
-CMD ./build/install/app/bin/app
+EXPOSE 8080
+
+CMD ./build/install/app/bin/app --spring.profiles.active=prod
