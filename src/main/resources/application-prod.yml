@@ -1,10 +1,7 @@
 spring:
-  devtools:
-    restart:
-      enabled: false
-
   datasource:
     url: ${JDBC_DATABASE_URL}
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: "org.postgresql.Driver"
     username: ${USERNAME}
     password: ${PASSWORD}
+  database-platform: "org.hibernate.dialect.PostgreSQLDialect"
